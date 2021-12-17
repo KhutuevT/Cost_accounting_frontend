@@ -212,11 +212,10 @@ const render = async () => {
       5,
       7
     )}-${date.slice(0, 4)}`;
+    
     divDateBlock.appendChild(dateBlock);
     divInfoBlock.appendChild(divDateBlock);
-
     container.appendChild(divInfoBlock);
-
     contentBlock.appendChild(container);
   });
 };
