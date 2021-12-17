@@ -1,0 +1,115 @@
+.receipt-block {
+  border: 1px solid #0096876e;
+  box-shadow: 5px 5px 1px #0096876e;
+  border-radius: 10px;
+}
+
+input {
+  border-radius: 5px;
+}
+
+.receipt-block p {
+  word-break: break-all;
+}
+
+.div-date-block p {
+  text-align: center;
+}
+
+.main-container-div {
+  border: 1px solid #000000;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+body {
+  font-family: "DotGothic16", sans-serif;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 90%;
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.receipt-block {
+  margin-top: 20px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.edit-receipt-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.receipt-block-img {
+  height: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.div-img-block {
+  width: 100%;
+}
+
+.div-info-block {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.div-info-block div {
+  width: 33%;
+}
+
+button {
+  background-color: #009687cd;
+  border: 1px solid;
+  padding: 5px;
+  border-radius: 5px;
+  box-shadow: 5px 5px 1px #0096876e;
+}
+
+.receipt-block button {
+  margin-bottom: 10px;
+}
+
+.receipt-block input {
+  margin-bottom: 10px;
+}
+
+input {
+  border: 1px solid;
+  margin-bottom: 5px;
+  box-shadow: 5px 5px 1px #0096876e;
+}
+
+.main-container-div input {
+  height: 25px;
+  padding: 0px;
+  margin: 0px;
+}
+
+@media screen and (max-width: 545px) {
+  .main-container-div {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .main-container-div input {
+    margin-bottom: 5px;
+  }
+} ;
