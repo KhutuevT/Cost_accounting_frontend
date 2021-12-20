@@ -25,21 +25,21 @@ const postPachData = async (method = "", url = "", data = {}) => {
   return response;
 };
 
-const updateWhereText = (Event) => {
+const updateWhereText = (Event, a) => {
   whereText = Event.target.value;
 };
 
 const updateHowText = (Event) => {
-  if (+Event.target.value) {
+  if (+Event.target.value && +Event.target.value > 0) {
     howNumber = Event.target.value;
   } else {
     inputHow.value = "";
-    alert("Введите числовое значение!");
+    alert("Введите верное числовое значение!");
   }
 };
 
 const onButtonAddClick = async () => {
-  if (whereText !== null && howNumber !== null) {
+  if (whereText.trim().length !== 0 && howNumber !== null) {
     postPachData("POST", `http://localhost:${PORT}/newReceipt`, {
       text: whereText,
       cost: howNumber,
@@ -84,6 +84,9 @@ const onClickEdit = async (index, receiptArr) => {
   const inputDate = document.createElement("input");
   inputDate.value = editDate.slice(0, 10);
   inputDate.type = "date";
+  var now = new Date();
+  inputDate.min = `${now.getFullYear()}-${now.getMonth() - 1}-${now.getDate()}`;
+  inputDate.max = `${now.getFullYear()}-${now.getMonth()}-${now.getDate()}`;
 
   inputDate.addEventListener("change", (Event) => {
     editDate = Event.target.value;
@@ -98,7 +101,7 @@ const onClickEdit = async (index, receiptArr) => {
       editCost !== 0 &&
       editDate.trim().length !== 0
     ) {
-      if (+editCost) {
+      if (+editCost && +editCost > 0) {
         postPachData("PATCH", `http://localhost:${PORT}/updateReceipt`, {
           id: _id,
           text: editText,
@@ -136,6 +139,137 @@ const onClickDelete = async (id) => {
   });
 
   render();
+};
+
+const ondblclickBlock = (id, data, type) => {
+  let divBoxData = document.getElementById(`${type}=${id}`);
+  let divBox = document.getElementById(`div_${type}=${id}`);
+  while (divBox.firstChild) {
+    divBox.removeChild(divBox.firstChild);
+  }
+  switch (type) {
+    case "text":
+      let editText = data;
+      const inputText = document.createElement("input");
+      inputText.value = editText;
+      inputText.id = `${type}=${id}`;
+
+      function handleClick1(Event) {
+        if (Event.target.id != inputText.id) {
+          render();
+          document.removeEventListener("click", handleClick1);
+        }
+      }
+
+      document.addEventListener("click", handleClick1);
+
+      inputText.addEventListener("blur", (Event) => {
+        editText = Event.target.value;
+        if (editText.trim().length !== 0) {
+          postPachData("PATCH", `http://localhost:${PORT}/updateReceipt`, {
+            id,
+            text: editText,
+          })
+            .then((data) => {
+              render();
+            })
+            .catch((err) => {
+              console.error(err);
+            });
+        } else {
+          inputText.value = data;
+          alert("Введите текст!");
+        }
+      });
+      divBox.appendChild(inputText);
+
+      break;
+
+    case "cost":
+      let editCost = data;
+      const inputCost = document.createElement("input");
+      inputCost.value = editCost;
+      inputCost.id = `${type}=${id}`;
+
+      function handleClick2(Event) {
+        if (Event.target.id != inputCost.id) {
+          render();
+          document.removeEventListener("click", handleClick2);
+        }
+      }
+
+      document.addEventListener("click", handleClick2);
+
+      inputCost.addEventListener("blur", (Event) => {
+        editCost = Event.target.value;
+        if (+editCost && editCost > 0) {
+          postPachData("PATCH", `http://localhost:${PORT}/updateReceipt`, {
+            id,
+            cost: editCost,
+          })
+            .then((data) => {
+              render();
+            })
+            .catch((err) => {
+              console.error(err);
+            });
+        } else {
+          inputCost.value = data;
+          alert("Ведите верное числовое значение!");
+        }
+      });
+      divBox.appendChild(inputCost);
+      break;
+
+    case "date":
+      let editDate = `${data.slice(8, 10)}-${data.slice(5, 7)}-${data.slice(
+        0,
+        4
+      )}`;
+
+      const inputDate = document.createElement("input");
+      inputDate.type = "date";
+      var now = new Date();
+      inputDate.min = `${now.getFullYear()}-${
+        now.getMonth() - 2
+      }-${now.getDate()}`;
+      inputDate.max = `${now.getFullYear()}-${
+        now.getMonth() + 1
+      }-${now.getDate()}`;
+      inputDate.value = data.slice(0, 10);
+      //inputDate.autofocus = true;
+      inputDate.id = `${type}=${id}`;
+
+      function handleClick3(Event) {
+        if (Event.target.id != inputDate.id) {
+          render();
+          document.removeEventListener("click", handleClick3);
+        }
+      }
+
+      document.addEventListener("click", handleClick3);
+
+      inputDate.addEventListener("blur", (Event) => {
+        editDate = Event.target.value;
+        if (editDate.trim().length !== 0) {
+          postPachData("PATCH", `http://localhost:${PORT}/updateReceipt`, {
+            id,
+            date: editDate,
+          })
+            .then((data) => {
+              render();
+            })
+            .catch((err) => {
+              console.error(err);
+            });
+        } else {
+          inputText.value = data;
+          alert("Введите правильную дату!");
+        }
+      });
+      divBox.appendChild(inputDate);
+      break;
+  }
 };
 
 const render = async () => {
@@ -195,13 +329,21 @@ const render = async () => {
     divTextBlock.className = "div-text-block";
     const textBlock = document.createElement("p");
     textBlock.innerText = text;
+    divTextBlock.id = `div_text=${_id}`;
+    textBlock.id = `text=${_id}`;
+    textBlock.ondblclick = () => ondblclickBlock(_id, text, "text");
+
     divTextBlock.appendChild(textBlock);
     divInfoBlock.appendChild(divTextBlock);
 
     const divCostBlock = document.createElement("div");
-    divCostBlock.className = "div-text-block";
+    divCostBlock.className = "div-cost-block";
     const costBlock = document.createElement("p");
     costBlock.innerText = `${cost} р.`;
+    divCostBlock.id = `div_cost=${_id}`;
+    costBlock.id = `cost=${_id}`;
+    costBlock.ondblclick = () => ondblclickBlock(_id, cost, "cost");
+
     divCostBlock.appendChild(costBlock);
     divInfoBlock.appendChild(divCostBlock);
 
@@ -212,7 +354,10 @@ const render = async () => {
       5,
       7
     )}-${date.slice(0, 4)}`;
-    
+    divDateBlock.id = `div_date=${_id}`;
+    dateBlock.id = `date=${_id}`;
+    dateBlock.ondblclick = () => ondblclickBlock(_id, date, "date");
+
     divDateBlock.appendChild(dateBlock);
     divInfoBlock.appendChild(divDateBlock);
     container.appendChild(divInfoBlock);
