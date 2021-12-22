@@ -154,7 +154,7 @@ const ondblclickBlock = (id, data, type) => {
       inputText.value = editText;
       inputText.id = `${type}=${id}`;
 
-      function handleClick1(Event) {
+      const handleClick1 = (Event) => {
         if (Event.target.id != inputText.id) {
           render();
           document.removeEventListener("click", handleClick1);
@@ -191,7 +191,7 @@ const ondblclickBlock = (id, data, type) => {
       inputCost.value = editCost;
       inputCost.id = `${type}=${id}`;
 
-      function handleClick2(Event) {
+      const handleClick2 = (Event) => {
         if (Event.target.id != inputCost.id) {
           render();
           document.removeEventListener("click", handleClick2);
@@ -236,7 +236,7 @@ const ondblclickBlock = (id, data, type) => {
       inputDate.value = data.slice(0, 10);
       inputDate.id = `${type}=${id}`;
 
-      function handleClick3(Event) {
+      const handleClick3 = (Event) => {
         if (Event.target.id != inputDate.id) {
           render();
           document.removeEventListener("click", handleClick3);
@@ -357,3 +357,4 @@ const render = async () => {
     contentBlock.appendChild(container);
   });
 };
+
