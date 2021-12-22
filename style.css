@@ -4,6 +4,43 @@
   border-radius: 10px;
 }
 
+.div-text-block{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.div-text-block input{
+  width: 80%;
+  margin-top: 10px;
+}
+
+.div-cost-block{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.div-cost-block input{
+  width: 80%;
+  margin-top: 10px;
+}
+
+.div-date-block{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.div-date-block input{
+  width: 80%;
+  margin-top: 10px;
+}
+
+h1{
+  color: #009687;
+}
+
 input {
   border-radius: 5px;
 }
@@ -103,13 +140,21 @@ input {
   margin: 0px;
 }
 
+.div-date-block input{
+  width: 100%;
+}
+
 @media screen and (max-width: 545px) {
+  .div-date-block{
+    font-size: 14px;
+  }
+
   .main-container-div {
     display: flex;
     flex-direction: column;
-  }
+  };
   
   .main-container-div input {
     margin-bottom: 5px;
-  }
-} ;
+  };
+}
