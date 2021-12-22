@@ -84,7 +84,7 @@ const onClickEdit = async (index, receiptArr) => {
   const inputDate = document.createElement("input");
   inputDate.value = editDate.slice(0, 10);
   inputDate.type = "date";
-  var now = new Date();
+  let now = new Date();
   inputDate.min = `${now.getFullYear()}-${now.getMonth() - 1}-${now.getDate()}`;
   inputDate.max = `${now.getFullYear()}-${now.getMonth()}-${now.getDate()}`;
 
@@ -229,7 +229,7 @@ const ondblclickBlock = (id, data, type) => {
 
       const inputDate = document.createElement("input");
       inputDate.type = "date";
-      var now = new Date();
+      let now = new Date();
       inputDate.min = `${now.getFullYear()}-${
         now.getMonth() - 2
       }-${now.getDate()}`;
@@ -237,7 +237,6 @@ const ondblclickBlock = (id, data, type) => {
         now.getMonth() + 1
       }-${now.getDate()}`;
       inputDate.value = data.slice(0, 10);
-      //inputDate.autofocus = true;
       inputDate.id = `${type}=${id}`;
 
       function handleClick3(Event) {
