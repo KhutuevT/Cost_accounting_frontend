@@ -143,6 +143,10 @@ input {
   margin: 0px;
 }
 
+.div-date-block input{
+  width: 100%;
+}
+
 @media screen and (max-width: 545px) {
   .div-date-block{
     font-size: 14px;
