@@ -222,10 +222,7 @@ const ondblclickBlock = (id, data, type) => {
       break;
 
     case "date":
-      let editDate = `${data.slice(8, 10)}-${data.slice(5, 7)}-${data.slice(
-        0,
-        4
-      )}`;
+      let editDate = `${data.slice(8, 10)}-${data.slice(5, 7)}-${data.slice(0,4)}`;
 
       const inputDate = document.createElement("input");
       inputDate.type = "date";
@@ -349,10 +346,7 @@ const render = async () => {
     const divDateBlock = document.createElement("div");
     divDateBlock.className = "div-date-block";
     const dateBlock = document.createElement("p");
-    dateBlock.innerText = `${date.slice(8, 10)}-${date.slice(
-      5,
-      7
-    )}-${date.slice(0, 4)}`;
+    dateBlock.innerText = `${date.slice(8, 10)}-${date.slice(5,7)}-${date.slice(0, 4)}`;
     divDateBlock.id = `div_date=${_id}`;
     dateBlock.id = `date=${_id}`;
     dateBlock.ondblclick = () => ondblclickBlock(_id, date, "date");
